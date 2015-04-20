@@ -76,7 +76,7 @@
         sig (* sig (lin-exp (lf-noise1 (repeat 16 0.5)) 0.1 1 0.1 1))
         sig (splay:ar sig)
         sig (balance2:ar (nth sig 0) (nth sig 1) pan)
-        sig (* sig env amp)]
+        sig (* sig env amp 20)]
     (out:ar out-bus sig)))
 
 (comment
