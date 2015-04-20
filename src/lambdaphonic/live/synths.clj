@@ -1,5 +1,6 @@
 (ns lambdaphonic.live.synths
     (:use [overtone.live :refer :all]
+          [lambdaphonic.live.constants]
           [mud.core :refer :all])
     (:require [mud.timing :as time]))
 
@@ -131,15 +132,11 @@
         env (env-gen:ar (envelope [0 1 1 0] [fade-time hold-time fade-time] :sine) :level-scale (* amp (amp-comp freq) 0.5) :action FREE)]
     (offset-out:ar out-bus (pan2 (* snd env) pan))))
 
-
 (def mul overtone.sc.ugen-collide/*)
-(defsynth blipseq [out-bus 0]
-  (let [d (duty:kr [1 1/2 1/4] 0 (dseq:dr [24 27 31 36 41] INF))
+(defsynth blips [amp 1 out-bus 0]
+  (let [d (duty:kr [1/40] 0 (dseq:dr (map #(+ 96 %) (take 1000 pi)) INF))
         sigs (blip:ar (mul (midicps d) [1 2 4]) 4)
         sig  (sum sigs)
         fx   (g-verb:ar sig 200 8)]
-    (out:ar out-bus (mul fx 0.5))))
-(comment
-(blipseq)
-(stop)
-)
+    (out:ar out-bus (mul fx 0.01 amp))))
+
