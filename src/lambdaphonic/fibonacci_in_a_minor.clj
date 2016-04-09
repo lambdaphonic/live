@@ -5,7 +5,8 @@
   (require [leipzig.scale :as scale]
            [leipzig.live :as ll]
            [leipzig.chord :as chord]
-           [leipzig.temperament :as temperament]))
+           [leipzig.temperament :as temperament]
+           [shadertone.tone :as t]))
 
 (def chord-mappings {:C4 [:E4 :G3] :C#4 [:A3 :G3] :D4 [:C4 :G3] :D#4 [:C4 :A3] :Eb4 [:C4 :A3] :E4 [:C4 :A4] :F4 [:D4 :A4] :F#4 [:D4 :A4] :G4 [:E4 :B4] :G#4 [:E4 :B4] :Ab4 [:E4 :B4] :A4 [:E4 :C4] :A#4 [:F4 :D4] :Bb4 [:F4 :D4] :B4 [:G4 :D4]})
 
@@ -45,7 +46,10 @@
        (where :time (bpm 120))
        (where :duration (bpm 120))
        (where :pitch (comp temperament/equal scale/A scale/minor))))
-
+(comment
+(t/start-fullscreen "resources/electric.glsl" :textures [:overtone-audio])
+(t/stop)
+)
 (comment
   (ll/play track)
   (ll/stop)

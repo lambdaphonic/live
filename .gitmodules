@@ -1,0 +1,3 @@
+[submodule "git_deps/overtone.helpers"]
+	path = git_deps/overtone.helpers
+	url = https://github.com/lambdaphonic/overtone.helpers.git
